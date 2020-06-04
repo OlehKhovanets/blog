@@ -4,30 +4,30 @@ namespace App\Services\UserCreated;
 
 class PayloadObject
 {
-    public array $payload;
+    public object $payload;
 
-    public function __construct(array $payload)
+    public function __construct(object $payload)
     {
         $this->payload = $payload;
     }
 
     public function getId()
     {
-        return $this->payload[0]->id;
+        return $this->payload->id;
     }
 
     public function getEmail()
     {
-        return $this->payload[0]->email;
+        return $this->payload->email;
     }
 
     public function getName()
     {
-        return $this->payload[0]->name;
+        return $this->payload->name;
     }
 
     public function getUserId()
     {
-        return $this->payload[0]->user_id;
+        return $this->payload->user_id;
     }
 }

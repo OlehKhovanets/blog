@@ -8,11 +8,11 @@ class Builder
 {
     public const EVENT_NAME = 'MS:Auth:User.Created';
 
-    protected array $payload;
+    protected object $payload;
 
     protected PayloadObject $payloadObject;
 
-    public function __construct(array $payload)
+    public function __construct(object $payload)
     {
         $this->payloadObject = new PayloadObject($payload);
     }
