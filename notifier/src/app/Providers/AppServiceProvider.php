@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Repositories\Job\JobRepository;
 use App\Models\Job;
 use App\Observers\JobObserver;
+use App\Repositories\User\JobRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(JobRepository::class, JobRepositoryEloquent::class);
     }
 
     /**

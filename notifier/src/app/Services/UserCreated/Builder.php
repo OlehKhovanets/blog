@@ -2,30 +2,22 @@
 
 namespace App\Services\UserCreated;
 
-use App\Models\Job;
+use App\Services\CqrsRouter;
+use App\Services\Job\Command\CreateJobCommand;
 
 class Builder
 {
-    public const EVENT_NAME = 'MS:Auth:User.Created';
+    use CqrsRouter;
 
-    protected object $payload;
-
-    protected PayloadObject $payloadObject;
+    public object $payload;
 
     public function __construct(object $payload)
     {
-        $this->payloadObject = new PayloadObject($payload);
+        $this->payload = $payload;
     }
-
-
 
     public function build()
     {
-        Job::query()->create([
-            'email' => $this->payloadObject->getEmail(),
-            'eventName' => self::EVENT_NAME,
-            'name' => $this->payloadObject->getName(),
-            'user_id' => $this->payloadObject->getUserId()
-            ]);
+        $this->handle(new CreateJobCommand($this->payload));
     }
 }

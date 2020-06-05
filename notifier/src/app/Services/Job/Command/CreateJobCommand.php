@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Services\UserCreated;
+namespace App\Services\Job\Command;
 
-class PayloadObject
+class CreateJobCommand
 {
-    public object $payload;
+    protected object $payload;
 
     public function __construct(object $payload)
     {
         $this->payload = $payload;
-    }
-
-    public function getId()
-    {
-        return $this->payload->id;
     }
 
     public function getEmail()
