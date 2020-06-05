@@ -6,7 +6,6 @@ use App\Contracts\Repositories\User\UserRepository;
 use App\Events\UserCreated;
 use App\Http\Requests\SingUpRequest;
 use App\Services\User\Command\CreateUserCommand;
-use App\User;
 use Illuminate\Support\Str;
 
 class SignUpController extends Controller
@@ -24,7 +23,6 @@ class SignUpController extends Controller
         $this->handle(new CreateUserCommand($request));
 
         $user = $this->userRepository->findWhere(['user_id' => $request->get('user_id')])->first();
-//        $user = User::query()->where('user_id', $request->get('user_id'))->get();
         event(new UserCreated($user));
     }
 }

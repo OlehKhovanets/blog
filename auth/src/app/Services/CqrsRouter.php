@@ -7,10 +7,8 @@ trait CqrsRouter
     public function handle($command)
     {
         $commandName = (new \ReflectionClass($command))->getName();
+        $handlerNameBuilder = sprintf('%s%s', "\\", str_replace('Command', 'Handler', $commandName));
 
-        $handlerNameBuilder = str_replace('Command', 'Handler', $commandName);
-        $handlerNameBuilder = "\\" . $handlerNameBuilder;
-
-        (new $handlerNameBuilder($command))->handle();
+        (new $handlerNameBuilder())->handle($command);
     }
 }

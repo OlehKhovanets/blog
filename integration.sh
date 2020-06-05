@@ -3,9 +3,9 @@
 function up()
 {
   cd general && docker-compose up -d
+  cd ../mailer && docker-compose up -d
   cd ../auth && docker-compose up -d
   cd ../notifier && docker-compose up -d
-  cd ../mailer && docker-compose up -d
 }
 
 function down() {

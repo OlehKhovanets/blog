@@ -2,25 +2,28 @@
 
 namespace App\Services\User\Handler;
 
+use App\Contracts\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryEloquent;
+use App\Services\User\Command\CreateUserCommand;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUserHandler
 {
-    protected $command;
+    protected UserRepository $repository;
 
-    public function __construct($command)
+    public function __construct()
     {
-        $this->command = $command;
+        $this->repository = new UserRepositoryEloquent();
     }
 
-    public function handle()
+    public function handle(CreateUserCommand $command)
     {
-        User::query()->create([
-            'email' => $this->command->getEmail(),
-            'name' => $this->command->getName(),
-            'password'=> Hash::make($this->command->getPassword()),
-            'user_id' => $this->command->getUserId()
+        $this->repository->create([
+            'email' => $command->getEmail(),
+            'name' => $command->getName(),
+            'password'=> Hash::make($command->getPassword()),
+            'user_id' => $command->getUserId()
         ]);
     }
 }
